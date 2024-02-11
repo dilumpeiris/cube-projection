@@ -20,6 +20,8 @@ int main()
     cube.update();
     cube.getRelations();
 
+    int t_speed = 10;
+    int r_speed = 3;
     while (runing)
     {
 
@@ -33,31 +35,31 @@ int main()
                 {
                     if (event.key.keysym.sym == SDLK_w)
                     {
-                        cube.y_pos = cube.y_pos - 3;
+                        cube.y_pos = cube.y_pos + t_speed;
                         cube.update();
                         cube.getRelations();
                     }
                     else if (event.key.keysym.sym == SDLK_s)
                     {
-                        cube.y_pos = cube.y_pos + 3;
+                        cube.y_pos = cube.y_pos - t_speed;
                         cube.update();
                         cube.getRelations();
                     }
                     else if (event.key.keysym.sym == SDLK_a)
                     {
-                        cube.x_pos = cube.x_pos + 3;
+                        cube.x_pos = cube.x_pos - t_speed;
                         cube.update();
                         cube.getRelations();
                     }
                     else if (event.key.keysym.sym == SDLK_d)
                     {
-                        cube.x_pos = cube.x_pos - 3;
+                        cube.x_pos = cube.x_pos + t_speed;
                         cube.update();
                         cube.getRelations();
                     }
                     else if (event.key.keysym.sym == SDLK_UP)
                     {
-                        cube.x_rot = cube.x_rot + 3;
+                        cube.x_rot = cube.x_rot + r_speed;
 
                         cube.rotate();
                         cube.update();
@@ -65,7 +67,7 @@ int main()
                     }
                     else if (event.key.keysym.sym == SDLK_DOWN)
                     {
-                        cube.x_rot = cube.x_rot - 3;
+                        cube.x_rot = cube.x_rot - r_speed;
 
                         cube.rotate();
                         cube.update();
@@ -73,7 +75,7 @@ int main()
                     }
                     else if (event.key.keysym.sym == SDLK_RIGHT)
                     {
-                        cube.y_rot = cube.y_rot + 3;
+                        cube.y_rot = cube.y_rot + r_speed;
 
                         cube.rotate();
                         cube.update();
@@ -81,7 +83,7 @@ int main()
                     }
                     else if (event.key.keysym.sym == SDLK_LEFT)
                     {
-                        cube.y_rot = cube.y_rot - 3;
+                        cube.y_rot = cube.y_rot - r_speed;
 
                         cube.rotate();
                         cube.update();
