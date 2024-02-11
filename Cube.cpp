@@ -158,17 +158,17 @@ void Cube::update()
         int new_x = (int)(400 * ((double)(x + x_pos) / (double)(600 - z)));
         int new_y = (int)(400 * ((double)(y + y_pos) / (double)(600 - z)));
 
-        printf("%d \n", new_x);
-
         pointsP[i][0] = new_x;
         pointsP[i][1] = new_y;
         pointsP[i][2] = z;
     }
 }
-void Cube::rotateX(int x, int y)
+void Cube::rotate()
 {
-    double x_rot = (double)x / 100;
-    double y_rot = (double)y / 100;
+
+    double x_rotation = (double)x_rot / 100;
+    double y_rotation = (double)y_rot / 100;
+    double z_rotation = (double)z_rot / 100;
 
     for (size_t i = 0; i < 8; i++)
     {
@@ -176,11 +176,11 @@ void Cube::rotateX(int x, int y)
         double y = (double)points[i][1];
         double z = (double)points[i][2];
 
-        double new_x = (double)x * cos(x_rot) - (double)y * sin(x_rot);
-        double new_y = (double)x * sin(x_rot) + (double)y * cos(x_rot);
+        double new_x = (double)x * cos(x_rotation) - (double)y * sin(x_rotation);
+        double new_y = (double)x * sin(x_rotation) + (double)y * cos(x_rotation);
 
-        double newest_x = (double)new_x * cos(y_rot) + (double)z * sin(y_rot);
-        double new_z = -(double)new_x * sin(y_rot) + (double)z * cos(y_rot);
+        double newest_x = (double)new_x * cos(y_rotation) + (double)z * sin(y_rotation);
+        double new_z = -(double)new_x * sin(y_rotation) + (double)z * cos(y_rotation);
 
         pointsR[i][0] = (int)newest_x;
         pointsR[i][1] = (int)new_y;

@@ -13,10 +13,14 @@ public:
     int x_pos = 0;
     int y_pos = 0;
     int z_pos = 0;
-    void update();
-    void rotateX(int x, int y);
-    Cube();
-    void getRelations();
 
+    int x_rot = 0;
+    int y_rot = 0;
+    int z_rot = 0;
+
+    Cube();
+    void update();
+    void rotate();
+    void getRelations();
     ~Cube();
 };
