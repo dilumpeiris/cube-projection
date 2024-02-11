@@ -7,23 +7,21 @@ namespace cube
     }
     bool Window::Init()
     {
-        // Check the init
         if (SDL_Init(SDL_INIT_VIDEO) < 0)
         {
             return 0;
         }
-        // Create the window
+
         m_window = SDL_CreateWindow("Cube Rotate", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-        // Check the window
         if (m_window == NULL)
         {
             SDL_Quit();
             return 0;
         }
-        // Create Renderer and Texture
+
         m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_PRESENTVSYNC);
         m_texture = SDL_CreateTexture(m_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, WINDOW_WIDTH, WINDOW_HEIGHT);
-        // Check Renderer and Texture
+
         if (m_renderer == NULL or m_texture == NULL)
         {
             SDL_DestroyRenderer(m_renderer);
@@ -32,7 +30,7 @@ namespace cube
             SDL_Quit();
             return 0;
         }
-        // Update color to white
+
         m_buffer = new Uint32[WINDOW_HEIGHT * WINDOW_WIDTH];
         m_bufferBlur = new Uint32[WINDOW_HEIGHT * WINDOW_WIDTH];
 
@@ -56,12 +54,6 @@ namespace cube
     void Window::setPixels(int x, int y, Uint8 r, Uint8 g, Uint8 b)
     {
 
-        int _x = (WINDOW_WIDTH / 2 + x);
-        int _y = ((WINDOW_WIDTH / 2 - y) * WINDOW_WIDTH);
-        // if (abs(x) >= WINDOW_WIDTH / 2 || abs(y) >= WINDOW_HEIGHT / 2)
-        // {
-        //     return;
-        // }
         Uint32 color = 0;
 
         color += r;
@@ -71,9 +63,9 @@ namespace cube
         color += b;
         color <<= 8;
         color += 0xFF;
-        int pixel = (_y + _x);
-        if (pixel)
-            m_buffer[pixel] = color;
+
+        int pixel = ((WINDOW_WIDTH / 2 - y) * WINDOW_WIDTH + (WINDOW_WIDTH / 2 + x));
+        m_buffer[pixel] = color;
     }
 
     void Window::drawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b)
@@ -90,7 +82,6 @@ namespace cube
         y = y1;
         for (size_t i = 0; i < len; i++)
         {
-            // y = mx+c
             if (abs(x) < WINDOW_WIDTH / 2 & abs(y) < WINDOW_HEIGHT / 2)
             {
                 setPixels((int)x, (int)y, r, g, b);
@@ -100,11 +91,6 @@ namespace cube
         }
     }
 
-    void Window::clearPixels()
-    {
-        memset(m_buffer, 0, WINDOW_HEIGHT * WINDOW_WIDTH * sizeof(Uint32));
-        screenUpdate();
-    }
     void Window::screenBlur()
     {
         Uint32 *temp = m_buffer;
@@ -162,6 +148,12 @@ namespace cube
         SDL_UpdateTexture(m_texture, NULL, m_buffer, WINDOW_WIDTH * sizeof(Uint32));
         SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
         SDL_RenderPresent(m_renderer);
+    }
+
+    void Window::clearPixels()
+    {
+        memset(m_buffer, 0, WINDOW_HEIGHT * WINDOW_WIDTH * sizeof(Uint32));
+        screenUpdate();
     }
 
     void Window::screenClose()

@@ -22,6 +22,8 @@ int main()
 
     while (runing)
     {
+
+        int elapsed = SDL_GetTicks();
         SDL_Event event;
         while (SDL_PollEvent(&event))
         {
@@ -94,8 +96,6 @@ int main()
         }
 
         SDL_Delay(5);
-
-        int elapsed = SDL_GetTicks();
 
         for (size_t i = 0; i < 12; i++)
         {
